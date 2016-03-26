@@ -23,8 +23,8 @@ The autoloading of all classes of this library is made through composer's autolo
 The basic usage of this library is as follows :
 
 ```php
-
 use Anastaszor\Tail\Tail;
+use Anastaszor\Tail\TailException;
 
 $filename = "/../path/to/my/file.ext";
 $tail = new Tail($filename);
