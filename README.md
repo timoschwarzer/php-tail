@@ -24,6 +24,8 @@ The basic usage of this library is as follows :
 
 ```php
 
+use Anastaszor\Tail\Tail;
+
 $filename = "/../path/to/my/file.ext";
 $tail = new Tail($filename);
 
