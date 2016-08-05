@@ -1,5 +1,5 @@
 {
-	"name" : "anastaszor/php-tail",
+	"name" : "php-extended/php-tail",
 	"description" : "A smart way to tail files depending of the environment",
 	"type" : "library",
 	"license" : "MIT",
@@ -9,7 +9,8 @@
 		}
 	],
 	"support" : {
-		"issues" : "https://github.com/Anastaszor/php-tail/issues"
+		"issues": "https://github.com/php-extended/php-tail/issues",
+		"source": "https://github.com/php-extended/php-tail"
 	},
 	"keywords" : [
 		"php",
@@ -20,11 +21,11 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"Anastaszor\\Tail\\" : "src/tail"
+			"PhpExtended\\Tail\\" : "src/tail"
 		}
 	},
-	"homepage" : "https://github.com/Anastaszor/php-tail",
+	"homepage" : "https://github.com/php-extended/php-tail",
 	"require" : {
-		"anastaszor/php-system" : "^1.1"
+		"php-extended/php-system" : "^1.2"
 	}
 }
