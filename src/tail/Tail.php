@@ -1,8 +1,8 @@
 <?php
 
-namespace Anastaszor\Tail;
+namespace PhpExtended\Tail;
 
-use Anastaszor\System\OperatingSystem;
+use PhpExtended\System\OperatingSystem;
 
 /**
  * Tail class file.
