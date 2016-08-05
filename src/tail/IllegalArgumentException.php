@@ -1,8 +1,6 @@
 <?php
 
-namespace Anastaszor\Tail;
-
-use Anastaszor\Tail\TailException;
+namespace PhpExtended\Tail;
 
 /**
  * IllegalArgumentException class file.
