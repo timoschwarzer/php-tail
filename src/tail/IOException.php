@@ -1,6 +1,6 @@
 <?php
 
-namespace Anastaszor\Tail;
+namespace PhpExtended\Tail;
 
 /**
  * IOException class file.
