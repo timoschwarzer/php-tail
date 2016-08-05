@@ -10,7 +10,7 @@ Then add to your composer.json :
 ```json
 	"require": {
 		...
-		"php-extended/php-tail": "^1.0",
+		"php-extended/php-tail": "^2.0",
 		...
 	}
 ```
