@@ -9,8 +9,8 @@
 		}
 	],
 	"support" : {
-		"issues": "https://github.com/php-extended/php-tail/issues",
-		"source": "https://github.com/php-extended/php-tail"
+		"issues" : "https://github.com/php-extended/php-tail/issues",
+		"source" : "https://github.com/php-extended/php-tail"
 	},
 	"keywords" : [
 		"php",
@@ -21,7 +21,7 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"PhpExtended\\Tail\\" : "src/tail"
+			"PhpExtended\\Tail\\" : "src/"
 		}
 	},
 	"homepage" : "https://github.com/php-extended/php-tail",
