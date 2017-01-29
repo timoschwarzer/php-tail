@@ -1,5 +1,5 @@
 {
-	"name" : "php-extended/php-tail",
+	"name" : "timoschwarzer/php-tail",
 	"description" : "A smart way to tail files depending of the environment",
 	"type" : "library",
 	"license" : "MIT",
