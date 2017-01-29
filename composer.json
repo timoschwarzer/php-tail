@@ -3,9 +3,14 @@
 	"description" : "A smart way to tail files depending of the environment",
 	"type" : "library",
 	"license" : "MIT",
-	"authors" : [{
+	"authors" : [
+		{
 			"name" : "Anastaszor",
 			"role" : "Developer"
+		},
+		{
+			"name" : "Timo Schwarzer",
+			"role" : "Contributor"
 		}
 	],
 	"support" : {
