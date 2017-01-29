@@ -93,24 +93,24 @@ class Tail
 	 */
 	public function smart($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
-			throw new FileNotFoundException($this->_file_path, $nblines, $hint);
+			throw new FileNotFoundException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$nblines = (int) $nblines;
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
-		$filelength = @filesize($this->_file_path);
+		$filelength = @filesize($this->getFilePath());
 		if($filelength === false)
 		{
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if($filelength == 0)
@@ -121,7 +121,7 @@ class Tail
 				return $this->cheat($nblines, $hint, $silent);
 			
 			if($silent) return array();
-			throw new FileTooBigException($this->_file_path, $nblines, $hint);
+			throw new FileTooBigException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if($nblines <= 2)
@@ -145,24 +145,24 @@ class Tail
 	 */
 	public function naive($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
-			throw new FileNotFoundException($this->_file_path, $nblines, $hint);
+			throw new FileNotFoundException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$nblines = (int) $nblines;
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
-		$filedata = file($this->_file_path);
+		$filedata = file($this->getFilePath());
 		if($filedata === false)
 		{
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		return array_slice($filedata, -$nblines);
@@ -180,51 +180,51 @@ class Tail
 	 */
 	public function cheat($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
-			throw new FileNotFoundException($this->_file_path, $nblines, $hint);
+			throw new FileNotFoundException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$nblines = (int) $nblines;
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if(!$this->isUnixSystem())
 		{
 			if($silent) return array();
-			throw new IllegalOsException($this->_file_path, $nblines, $hint);
+			throw new IllegalOsException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if(!function_exists('ob_start'))
 		{
 			if($silent) return array();
-			throw new OutputBufferException($this->_file_path, $nblines, $hint);
+			throw new OutputBufferException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if(!ob_start())
 		{
 			if($silent) return array();
-			throw new OutputBufferException($this->_file_path, $nblines, $hint);
+			throw new OutputBufferException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$returnvar = 0;
-		passthru('tail -n '.$nblines.' '.escapeshellarg($this->_file_path), $returnvar);
+		passthru('tail -n '.$nblines.' '.escapeshellarg($this->getFilePath()), $returnvar);
 		if($returnvar !== 0)
 		{
 			ob_end_clean();
 			if($silent) return array();
-			throw new TailShellException($this->_file_path, $nblines, $hint, $returnvar);
+			throw new TailShellException($this->getFilePath(), $nblines, $hint, $returnvar);
 		}
 		
 		$results = ob_get_clean();
 		if($results === false)
 		{
 			if($silent) return array();
-			throw new OutputBufferException($this->_file_path, $nblines, $hint);
+			throw new OutputBufferException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		return array_map('trim', explode("\n", $results));
@@ -242,7 +242,7 @@ class Tail
 	 */
 	public function single($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
 			throw new FileNotFoundException($nblines, $hint);
@@ -252,14 +252,14 @@ class Tail
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
-		$handle = fopen($this->_file_path, 'r');
+		$handle = fopen($this->getFilePath(), 'r');
 		if($handle === false)
 		{
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$linecounter = $nblines;
@@ -281,7 +281,7 @@ class Tail
 				if($t === false)
 				{
 					if($silent) return array();
-					throw new IOException($this->_file_path, $nblines, $hint);
+					throw new IOException($this->getFilePath(), $nblines, $hint);
 				}
 				$pos--;
 			}
@@ -292,14 +292,14 @@ class Tail
 				if($rewind === false)
 				{
 					if($silent) return array();
-					throw new IOException($this->_file_path, $nblines, $hint);
+					throw new IOException($this->getFilePath(), $nblines, $hint);
 				}
 			}
 			$data = fgetc($handle);
 			if($data === false)
 			{
 				if($silent) return array();
-				throw new IOException($this->_file_path, $nblines, $hint);
+				throw new IOException($this->getFilePath(), $nblines, $hint);
 			}
 			$text[$nblines - $linecounter - 1] = $data;
 			if($beginning) break;
@@ -322,17 +322,17 @@ class Tail
 	 */
 	public function simple($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
-			throw new FileNotFoundException($nblines, $hint);
+			throw new FileNotFoundException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$nblines = (int) $nblines;
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if($hint === null)
@@ -340,7 +340,7 @@ class Tail
 			// just assuming that this is text file with 40 char per line as a
 			// median basis. May be larger if it is a log file
 			$hint = 40;
-			if(strrpos($this->_file_path, '.log') === strlen($this->_file_path) - 4)
+			if(strrpos($this->getFilePath(), '.log') === strlen($this->getFilePath()) - 4)
 			{
 				$hint = 240;
 			}
@@ -364,7 +364,7 @@ class Tail
 	 */
 	public function dynamic($nblines, $hint = null, $silent = false)
 	{
-		if(!$this->file_exists)
+		if(!$this->getFileExists())
 		{
 			if($silent) return array();
 			throw new FileNotFoundException($nblines, $hint);
@@ -374,7 +374,7 @@ class Tail
 		if($nblines <= 0)
 		{
 			if($silent) return array();
-			throw new IllegalArgumentException($this->_file_path, $nblines, $hint);
+			throw new IllegalArgumentException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if($hint === null)
@@ -382,7 +382,7 @@ class Tail
 			// just assuming that this is text file with 40 char per line as a
 			// median basis. May be larger if it is a log file
 			$hint = 40;
-			if(strrpos($this->_file_path, '.log') === strlen($this->_file_path) - 4)
+			if(strrpos($this->getFilePath(), '.log') === strlen($this->getFilePath()) - 4)
 			{
 				$hint = 240;
 			}
@@ -408,11 +408,11 @@ class Tail
 	protected function find($nblines, $buffer, $hint, $silent)
 	{
 		$lines = $nblines;
-		$f = fopen($this->_file_path, 'r');
+		$f = fopen($this->getFilePath(), 'r');
 		if($f === false)
 		{
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$seek = fseek($f, -1, SEEK_END);
@@ -420,7 +420,7 @@ class Tail
 		{
 			fclose($f);
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		$read = fread($f, 1);
@@ -428,7 +428,7 @@ class Tail
 		{
 			fclose($f);
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		
 		if($read === "\n") $lines -= 1;
@@ -440,14 +440,14 @@ class Tail
 		{
 			fclose($f);
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		$chunk = fread($f, $seek);
 		if($chunk === false)
 		{
 			fclose($f);
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		$output = $chunk;
 		$seeked = fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
@@ -455,7 +455,7 @@ class Tail
 		{
 			fclose($f);
 			if($silent) return array();
-			throw new IOException($this->_file_path, $nblines, $hint);
+			throw new IOException($this->getFilePath(), $nblines, $hint);
 		}
 		$lines -= substr_count($chunk, "\n");
 		
@@ -471,7 +471,7 @@ class Tail
 			{
 				fclose($f);
 				if($silent) return array();
-				throw new IOException($this->_file_path, $nblines, $hint);
+				throw new IOException($this->getFilePath(), $nblines, $hint);
 			}
 			
 			// read a chunk and prepend it to out output
@@ -480,7 +480,7 @@ class Tail
 			{
 				fclose($f);
 				if($silent) return array();
-				throw new IOException($this->_file_path, $nblines, $hint);
+				throw new IOException($this->getFilePath(), $nblines, $hint);
 			}
 			$output = $chunk . $output;
 			
@@ -490,7 +490,7 @@ class Tail
 			{
 				fclose($f);
 				if($silent) return array();
-				throw new IOException($this->_file_path, $nblines, $hint);
+				throw new IOException($this->getFilePath(), $nblines, $hint);
 			}
 			
 			// decrease out line counter
